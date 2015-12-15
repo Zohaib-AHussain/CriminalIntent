@@ -12,6 +12,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import zohaibhussain.com.criminalintent.model.Crime;
@@ -59,7 +64,7 @@ public class CrimeFragment extends Fragment {
 
             }
         });
-        mDateButton.setText(mCrime.getDate().toString());
+        mDateButton.setText(getFormattedDate(mCrime.getDate()));
         mDateButton.setEnabled(false);
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -68,5 +73,11 @@ public class CrimeFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private String  getFormattedDate(Date crimeDate){
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+        return dateFormat.format(crimeDate);
+
     }
 }
