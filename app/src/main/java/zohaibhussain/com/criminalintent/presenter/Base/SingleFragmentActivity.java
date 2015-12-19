@@ -19,11 +19,12 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
-        if (fragment==null)
+        if (fragment==null) {
             fm.beginTransaction()
-                    .add(R.id.fragment_container, createFragment());
+                    .add(R.id.fragment_container, createFragment())
+                    .commit();
+        }
     }
-
 
     protected abstract Fragment createFragment();
 }
