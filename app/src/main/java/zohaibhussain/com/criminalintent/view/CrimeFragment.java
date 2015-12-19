@@ -1,4 +1,4 @@
-package zohaibhussain.com.criminalintent;
+package zohaibhussain.com.criminalintent.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +19,7 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 
 /**
