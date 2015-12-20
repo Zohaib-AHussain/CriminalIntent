@@ -16,17 +16,22 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
+import zohaibhussain.com.criminalintent.model.CrimeLab;
+import zohaibhussain.com.criminalintent.presenter.CrimeActivity;
+import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
 
 /**
  * Created by zohaibhussain on 2015-12-12.
  */
 public class CrimeFragment extends Fragment {
 
+    private static final String ARG_CRIME_ID = "crime_id";
     private Crime mCrime;
 
     @Bind(R.id.crime_title)
@@ -42,7 +47,8 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        UUID crimeID = (UUID)getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
     }
 
     @Override
@@ -65,6 +71,7 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+        mTitleField.setText(mCrime.getTitle());
         mDateButton.setText(getFormattedDate(mCrime.getDate()));
         mDateButton.setEnabled(false);
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -73,12 +80,20 @@ public class CrimeFragment extends Fragment {
                 mCrime.setSolved(b);
             }
         });
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
         return v;
     }
 
     private String  getFormattedDate(Date crimeDate){
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
         return dateFormat.format(crimeDate);
+    }
 
+    public static CrimeFragment newInstance(UUID crimeID){
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID, crimeID);
+        CrimeFragment crimeFragment = new CrimeFragment();
+        crimeFragment.setArguments(args);
+        return crimeFragment;
     }
 }

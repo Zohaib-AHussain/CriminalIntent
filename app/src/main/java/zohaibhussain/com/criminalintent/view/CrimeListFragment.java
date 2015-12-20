@@ -1,5 +1,6 @@
 package zohaibhussain.com.criminalintent.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,8 @@ import butterknife.ButterKnife;
 import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
+import zohaibhussain.com.criminalintent.presenter.CrimeActivity;
+import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
 
 /**
  * Created by zohaibhussain on 2015-12-15.
@@ -25,6 +28,7 @@ public class CrimeListFragment extends Fragment {
 
     @Bind(R.id.crime_recycler_view)
     protected RecyclerView mCrimeRecyclerView;
+
     private CrimeAdapter mAdapter;
 
     @Override
@@ -40,17 +44,17 @@ public class CrimeListFragment extends Fragment {
 
         @Bind(R.id.list_item_crime_title_text_view)
         protected TextView mTitleTextView;
+
         @Bind(R.id.list_item_crime_date_text_view)
         protected TextView mDateTextView;
+
         @Bind(R.id.list_item_solved_check_box)
         protected CheckBox mSolvedCheckBox;
+
         private Crime mCrime;
 
         public CrimeHolder(View itemView) {
-            super(itemView);/*
-            mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_crime_title_text_view);
-            mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
-            mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_solved_check_box);*/
+            super(itemView);
             ButterKnife.bind(this,itemView);
             itemView.setOnClickListener(this);
         }
@@ -64,7 +68,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(getActivity(), mCrime.getTitle()+ " clicked!", Toast.LENGTH_SHORT).show();
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getID());
+            startActivity(intent);
         }
     }
 
