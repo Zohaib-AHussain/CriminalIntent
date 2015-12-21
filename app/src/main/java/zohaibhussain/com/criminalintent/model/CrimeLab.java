@@ -27,7 +27,7 @@ public class CrimeLab {
         for (int i=0; i<100; i++){
             Crime crime = new Crime();
             crime.setTitle("Crime # "+i);
-            crime.setSolved(i%2==0);
+            crime.setSolved(i % 2 == 0);
             mCrimes.add(crime);
         }
     }
@@ -38,7 +38,7 @@ public class CrimeLab {
 
     public Crime getCrime(UUID id){
         for (Crime crime : mCrimes){
-            if(crime.getID()==id)
+            if(crime.getID().equals(id))
                 return crime;
         }
         return null;
