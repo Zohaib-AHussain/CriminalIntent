@@ -26,10 +26,13 @@ import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
  */
 public class CrimeListFragment extends Fragment {
 
+    private static final int REQUEST_CRIME = 1;
+
     @Bind(R.id.crime_recycler_view)
     protected RecyclerView mCrimeRecyclerView;
 
     private CrimeAdapter mAdapter;
+    private int mClickedCrimePosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
@@ -69,6 +72,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getID());
+            mClickedCrimePosition = getAdapterPosition();
             startActivity(intent);
         }
     }
@@ -114,7 +118,7 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         }
         else {
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemChanged(mClickedCrimePosition);
         }
     }
 
