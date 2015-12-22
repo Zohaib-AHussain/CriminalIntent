@@ -20,6 +20,7 @@ import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
 import zohaibhussain.com.criminalintent.presenter.CrimeActivity;
 import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
+import zohaibhussain.com.criminalintent.presenter.CrimePagerActivity;
 
 /**
  * Created by zohaibhussain on 2015-12-15.
@@ -71,7 +72,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getID());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getID());
             mClickedCrimePosition = getAdapterPosition();
             startActivity(intent);
         }
