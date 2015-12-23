@@ -2,6 +2,7 @@ package zohaibhussain.com.criminalintent.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,18 +14,15 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
-import zohaibhussain.com.criminalintent.presenter.CrimeActivity;
-import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
 
 /**
  * Created by zohaibhussain on 2015-12-12.
@@ -32,6 +30,7 @@ import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
 public class CrimeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
+    private static final String DIALOG_DATE = "DialogDate";
     private Crime mCrime;
 
     @Bind(R.id.crime_title)
@@ -73,7 +72,6 @@ public class CrimeFragment extends Fragment {
         });
         mTitleField.setText(mCrime.getTitle());
         mDateButton.setText(getFormattedDate(mCrime.getDate()));
-        mDateButton.setEnabled(false);
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -82,6 +80,13 @@ public class CrimeFragment extends Fragment {
         });
         mSolvedCheckBox.setChecked(mCrime.isSolved());
         return v;
+    }
+
+    @OnClick(R.id.crime_date)
+    public void onClickDateButton(){
+        FragmentManager fragmentManager = getFragmentManager();
+        DatePickerFragment dialog = new DatePickerFragment();
+        dialog.show(fragmentManager, DIALOG_DATE);
     }
 
     private String  getFormattedDate(Date crimeDate){
