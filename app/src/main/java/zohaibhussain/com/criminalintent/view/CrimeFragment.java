@@ -1,7 +1,10 @@
 package zohaibhussain.com.criminalintent.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,18 +16,16 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
-import zohaibhussain.com.criminalintent.presenter.CrimeActivity;
-import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
+import zohaibhussain.com.criminalintent.utils.DateUtil;
 
 /**
  * Created by zohaibhussain on 2015-12-12.
@@ -32,6 +33,8 @@ import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
 public class CrimeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
+    private static final String DIALOG_DATE = "DialogDate";
+    private static final int REQUEST_DATE = 0;
     private Crime mCrime;
 
     @Bind(R.id.crime_title)
@@ -72,8 +75,7 @@ public class CrimeFragment extends Fragment {
             }
         });
         mTitleField.setText(mCrime.getTitle());
-        mDateButton.setText(getFormattedDate(mCrime.getDate()));
-        mDateButton.setEnabled(false);
+        updateDate();
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -84,9 +86,28 @@ public class CrimeFragment extends Fragment {
         return v;
     }
 
-    private String  getFormattedDate(Date crimeDate){
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-        return dateFormat.format(crimeDate);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        if (requestCode == REQUEST_DATE){
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mCrime.setDate(date);
+            updateDate();
+        }
+
+    }
+
+    private void updateDate() {
+        mDateButton.setText(DateUtil.getFormattedDate(mCrime.getDate()));
+    }
+
+    @OnClick(R.id.crime_date)
+    public void onClickDateButton(){
+        FragmentManager fragmentManager = getFragmentManager();
+        DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+        dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+        dialog.show(fragmentManager, DIALOG_DATE);
     }
 
     public static CrimeFragment newInstance(UUID crimeID){
