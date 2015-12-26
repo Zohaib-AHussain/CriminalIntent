@@ -21,6 +21,7 @@ import zohaibhussain.com.criminalintent.model.CrimeLab;
 import zohaibhussain.com.criminalintent.presenter.CrimeActivity;
 import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
 import zohaibhussain.com.criminalintent.presenter.CrimePagerActivity;
+import zohaibhussain.com.criminalintent.utils.DateUtil;
 
 /**
  * Created by zohaibhussain on 2015-12-15.
@@ -66,7 +67,7 @@ public class CrimeListFragment extends Fragment {
         public void bindCrime(Crime crime){
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle().toString());
-            mDateTextView.setText(mCrime.getDate().toString());
+            mDateTextView.setText(DateUtil.getFormattedDate(mCrime.getDate()));
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
 
