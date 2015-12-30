@@ -19,7 +19,7 @@
         <activity
             android:name=".presenter.CrimePagerActivity"
             android:label="@string/title_activity_crime_pager"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:parentActivityName=".presenter.CrimeListActivity"/>
 
     </application>
 

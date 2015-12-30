@@ -24,7 +24,7 @@ import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
 import zohaibhussain.com.criminalintent.view.CrimeFragment;
 
-public class CrimePagerActivity extends FragmentActivity {
+public class CrimePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_CRIME_ID = "zohaibhussain.com.criminalintent.presenter.crime_id";
 
