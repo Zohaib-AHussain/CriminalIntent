@@ -59,7 +59,6 @@ public class CrimeLab {
         }finally {
             cursor.close();
         }
-
     }
 
     public void addCrime(Crime c){
@@ -76,7 +75,7 @@ public class CrimeLab {
     private CrimeCursorWrapper queryCrimes(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
                 CrimeTable.NAME,
-                null,//selects all columns
+                null, //selects all columns
                 whereClause,
                 whereArgs,
                 null,
@@ -92,6 +91,7 @@ public class CrimeLab {
         values.put(CrimeTable.Cols.TITLE, crime.getTitle());
         values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
         values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
+        values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
         return values;
     }
 }
