@@ -80,7 +80,7 @@ public class CrimeListFragment extends Fragment {
 
         public void bindCrime(Crime crime) {
             mCrime = crime;
-            mTitleTextView.setText(mCrime.getTitle().toString());
+            mTitleTextView.setText(mCrime.getTitle());
             mDateTextView.setText(DateUtil.getFormattedDate(mCrime.getDate()));
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
@@ -118,6 +118,8 @@ public class CrimeListFragment extends Fragment {
         public int getItemCount() {
             return mCrimes.size();
         }
+
+        public void setCrimes(List<Crime> newCrimes) { mCrimes = newCrimes; }
     }
 
     @Override
@@ -140,6 +142,7 @@ public class CrimeListFragment extends Fragment {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setCrimes(crimes);
             mAdapter.notifyItemChanged(mClickedCrimePosition);
         }
     }
