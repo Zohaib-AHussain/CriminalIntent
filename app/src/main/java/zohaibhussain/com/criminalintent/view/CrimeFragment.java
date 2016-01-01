@@ -37,6 +37,7 @@ public class CrimeFragment extends Fragment {
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
+
     private Crime mCrime;
 
     @Bind(R.id.crime_title)
@@ -118,6 +119,13 @@ public class CrimeFragment extends Fragment {
         CrimeFragment crimeFragment = new CrimeFragment();
         crimeFragment.setArguments(args);
         return crimeFragment;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
+
     }
 
     @Override
