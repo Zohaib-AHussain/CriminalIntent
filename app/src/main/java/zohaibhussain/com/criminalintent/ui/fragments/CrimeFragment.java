@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -34,7 +35,8 @@ import butterknife.OnClick;
 import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
-import zohaibhussain.com.criminalintent.utils.DateUtil;
+import zohaibhussain.com.criminalintent.utils.DateUtils;
+import zohaibhussain.com.criminalintent.utils.PicUtils;
 
 /**
  * Created by zohaibhussain on 2015-12-12.
@@ -131,6 +133,8 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+        updatePhotoView();
+
         return v;
     }
 
@@ -170,11 +174,14 @@ public class CrimeFragment extends Fragment {
                 c.close();
             }
         }
+        else if (requestCode == REQUEST_PHOTO){
+            updatePhotoView();
+        }
 
     }
 
     private void updateDate() {
-        mDateButton.setText(DateUtil.getFormattedDate(mCrime.getDate()));
+        mDateButton.setText(DateUtils.getFormattedDate(mCrime.getDate()));
     }
 
     @OnClick(R.id.crime_date)
@@ -199,7 +206,7 @@ public class CrimeFragment extends Fragment {
     public void onClickSuspectButton(){
         startActivityForResult(PICK_CONTACT_INTENT, REQUEST_CONTACT);
     }
-    
+
     public static CrimeFragment newInstance(UUID crimeID){
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeID);
@@ -215,7 +222,7 @@ public class CrimeFragment extends Fragment {
         else
             solvedString = getString(R.string.crime_report_unsolved);
 
-        String dateString = DateUtil.getFormattedDate(mCrime.getDate());
+        String dateString = DateUtils.getFormattedDate(mCrime.getDate());
         String suspect = mCrime.getSuspect();
         if (suspect == null)
             suspect = getString(R.string.crime_report_no_suspect);
@@ -225,6 +232,16 @@ public class CrimeFragment extends Fragment {
         String report = getString(R.string.crime_report, mCrime.getTitle(), dateString, solvedString, suspect);
         return report;
 
+    }
+
+    private void updatePhotoView(){
+        if (mPhotoFile == null || !mPhotoFile.exists()) {
+            mPhotoView.setImageDrawable(null);
+        }
+        else {
+            Bitmap bitmap = PicUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            mPhotoView.setImageBitmap(bitmap);
+        }
     }
 
     @Override
