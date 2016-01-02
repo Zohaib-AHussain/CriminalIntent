@@ -1,18 +1,13 @@
-package zohaibhussain.com.criminalintent.presenter;
+package zohaibhussain.com.criminalintent.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +17,7 @@ import butterknife.ButterKnife;
 import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
-import zohaibhussain.com.criminalintent.view.CrimeFragment;
+import zohaibhussain.com.criminalintent.ui.fragments.CrimeFragment;
 
 public class CrimePagerActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package zohaibhussain.com.criminalintent.view;
+package zohaibhussain.com.criminalintent.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,16 +15,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
-import zohaibhussain.com.criminalintent.presenter.CrimeActivity;
-import zohaibhussain.com.criminalintent.presenter.CrimeListActivity;
-import zohaibhussain.com.criminalintent.presenter.CrimePagerActivity;
+import zohaibhussain.com.criminalintent.ui.activities.CrimePagerActivity;
 import zohaibhussain.com.criminalintent.utils.DateUtil;
 
 /**

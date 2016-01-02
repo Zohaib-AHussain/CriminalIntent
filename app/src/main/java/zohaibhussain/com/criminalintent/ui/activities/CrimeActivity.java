@@ -1,4 +1,4 @@
-package zohaibhussain.com.criminalintent.presenter;
+package zohaibhussain.com.criminalintent.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 
 import java.util.UUID;
 
-import zohaibhussain.com.criminalintent.presenter.Base.SingleFragmentActivity;
-import zohaibhussain.com.criminalintent.view.CrimeFragment;
+import zohaibhussain.com.criminalintent.ui.activities.Base.SingleFragmentActivity;
+import zohaibhussain.com.criminalintent.ui.fragments.CrimeFragment;
 
 public class CrimeActivity extends SingleFragmentActivity {
 
