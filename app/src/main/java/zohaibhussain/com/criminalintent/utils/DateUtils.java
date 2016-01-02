@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by zohaibhussain on 2015-12-25.
  */
-public class DateUtil {
+public class DateUtils {
 
     public static String getFormattedDate(Date date){
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
