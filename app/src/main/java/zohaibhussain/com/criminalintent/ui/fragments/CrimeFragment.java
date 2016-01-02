@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.util.Date;
 import java.util.UUID;
@@ -59,6 +61,12 @@ public class CrimeFragment extends Fragment {
 
     @Bind(R.id.crime_suspect)
     protected Button mSuspectButton;
+
+    @Bind(R.id.crime_photo)
+    protected ImageView mPhotoView;
+
+    @Bind(R.id.crime_camera)
+    protected ImageButton mPhotoButton;
 
 
     @Override
