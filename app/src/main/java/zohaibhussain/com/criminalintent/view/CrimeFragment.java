@@ -3,6 +3,7 @@ package zohaibhussain.com.criminalintent.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -37,6 +38,8 @@ public class CrimeFragment extends Fragment {
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_CONTACT = 1;
+    private final Intent PICK_CONTACT_INTENT = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 
     private Crime mCrime;
 
@@ -51,6 +54,9 @@ public class CrimeFragment extends Fragment {
 
     @Bind(R.id.crime_report)
     protected Button mReportButton;
+
+    @Bind(R.id.crime_suspect)
+    protected Button mSuspectButton;
 
 
     @Override
@@ -89,7 +95,13 @@ public class CrimeFragment extends Fragment {
             }
         });
         mSolvedCheckBox.setChecked(mCrime.isSolved());
+        setSuspect();
         return v;
+    }
+
+    private void setSuspect() {
+        if (mCrime.getSuspect() != null)
+            mSuspectButton.setText(mCrime.getSuspect());
     }
 
     @Override
@@ -124,6 +136,11 @@ public class CrimeFragment extends Fragment {
         i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject));
         i = Intent.createChooser(i, getString(R.string.send_report));
         startActivity(i);
+    }
+
+    @OnClick(R.id.crime_suspect)
+    public void onClickSuspectButton(){
+        startActivityForResult(PICK_CONTACT_INTENT, REQUEST_CONTACT);
     }
 
     public static CrimeFragment newInstance(UUID crimeID){
