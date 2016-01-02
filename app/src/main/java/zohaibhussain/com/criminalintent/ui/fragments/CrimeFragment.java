@@ -1,4 +1,4 @@
-package zohaibhussain.com.criminalintent.view;
+package zohaibhussain.com.criminalintent.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;

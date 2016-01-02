@@ -1,8 +1,8 @@
-package zohaibhussain.com.criminalintent.presenter;
+package zohaibhussain.com.criminalintent.ui.activities;
 
 import android.support.v4.app.Fragment;
-import zohaibhussain.com.criminalintent.presenter.Base.SingleFragmentActivity;
-import zohaibhussain.com.criminalintent.view.CrimeListFragment;
+import zohaibhussain.com.criminalintent.ui.activities.Base.SingleFragmentActivity;
+import zohaibhussain.com.criminalintent.ui.fragments.CrimeListFragment;
 
 /**
  * Created by zohaibhussain on 2015-12-15.
