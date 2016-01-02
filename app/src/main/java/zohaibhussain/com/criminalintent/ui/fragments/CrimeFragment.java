@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.util.Date;
 import java.util.UUID;
 
@@ -43,9 +45,12 @@ public class CrimeFragment extends Fragment {
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
+    private static final int REQUEST_PHOTO = 2;
     private final Intent PICK_CONTACT_INTENT = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+    private final Intent CAPTURE_IMAGE = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
     private Crime mCrime;
+    private File mPhotoFile;
 
     @Bind(R.id.crime_title)
     protected EditText mTitleField;
@@ -108,6 +113,24 @@ public class CrimeFragment extends Fragment {
         setSuspectButtonText();
         if (!deviceContainsContactPicker())
             mSuspectButton.setEnabled(false);
+        mPhotoFile = CrimeLab.get(getActivity()).getPhotoFile(mCrime);
+        boolean canTakePhoto = mPhotoFile != null && CAPTURE_IMAGE.resolveActivity(getActivity().getPackageManager()) != null;
+        if (canTakePhoto) {
+            Uri uri = Uri.fromFile(mPhotoFile);
+            CAPTURE_IMAGE.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            mPhotoButton.setEnabled(true);
+        }
+        else {
+            mPhotoButton.setEnabled(false);
+        }
+
+        mPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(CAPTURE_IMAGE, REQUEST_PHOTO);
+            }
+        });
+
         return v;
     }
 
@@ -176,7 +199,7 @@ public class CrimeFragment extends Fragment {
     public void onClickSuspectButton(){
         startActivityForResult(PICK_CONTACT_INTENT, REQUEST_CONTACT);
     }
-
+    
     public static CrimeFragment newInstance(UUID crimeID){
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeID);
