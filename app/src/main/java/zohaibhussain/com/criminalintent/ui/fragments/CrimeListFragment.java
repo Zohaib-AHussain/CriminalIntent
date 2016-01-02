@@ -23,7 +23,7 @@ import zohaibhussain.com.criminalintent.R;
 import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
 import zohaibhussain.com.criminalintent.ui.activities.CrimePagerActivity;
-import zohaibhussain.com.criminalintent.utils.DateUtil;
+import zohaibhussain.com.criminalintent.utils.DateUtils;
 
 /**
  * Created by zohaibhussain on 2015-12-15.
@@ -79,7 +79,7 @@ public class CrimeListFragment extends Fragment {
         public void bindCrime(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(DateUtil.getFormattedDate(mCrime.getDate()));
+            mDateTextView.setText(DateUtils.getFormattedDate(mCrime.getDate()));
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
 
