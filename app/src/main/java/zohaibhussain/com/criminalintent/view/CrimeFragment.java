@@ -2,6 +2,7 @@ package zohaibhussain.com.criminalintent.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -97,7 +98,16 @@ public class CrimeFragment extends Fragment {
         });
         mSolvedCheckBox.setChecked(mCrime.isSolved());
         setSuspectButtonText();
+        if (!deviceContainsContactPicker())
+            mSuspectButton.setEnabled(false);
         return v;
+    }
+
+    private boolean deviceContainsContactPicker() {
+        PackageManager packageManager = getActivity().getPackageManager();
+        if (packageManager.resolveActivity(PICK_CONTACT_INTENT, packageManager.MATCH_DEFAULT_ONLY)==null)
+            return false;
+        return true;
     }
 
     private void setSuspectButtonText() {
