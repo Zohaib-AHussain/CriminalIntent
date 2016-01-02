@@ -49,6 +49,9 @@ public class CrimeFragment extends Fragment {
     @Bind(R.id.crime_solved)
     protected CheckBox mSolvedCheckBox;
 
+    @Bind(R.id.crime_report)
+    protected Button mReportButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -113,6 +116,16 @@ public class CrimeFragment extends Fragment {
         dialog.show(fragmentManager, DIALOG_DATE);
     }
 
+    @OnClick(R.id.crime_report)
+    public void onClickReportButton(){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
+        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject));
+        i = Intent.createChooser(i, getString(R.string.send_report));
+        startActivity(i);
+    }
+
     public static CrimeFragment newInstance(UUID crimeID){
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeID);
@@ -122,7 +135,7 @@ public class CrimeFragment extends Fragment {
     }
 
     private String getCrimeReport(){
-        String solvedString = null;
+        String solvedString;
         if (mCrime.isSolved())
             solvedString = getString(R.string.crime_report_solved);
         else
