@@ -19,7 +19,7 @@ import zohaibhussain.com.criminalintent.model.Crime;
 import zohaibhussain.com.criminalintent.model.CrimeLab;
 import zohaibhussain.com.criminalintent.ui.fragments.CrimeFragment;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.Callbacks{
 
     private static final String EXTRA_CRIME_ID = "zohaibhussain.com.criminalintent.presenter.crime_id";
 
@@ -62,4 +62,8 @@ public class CrimePagerActivity extends AppCompatActivity {
         return intent;
     }
 
+    @Override
+    public void onCrimeUpdated(Crime crime) {
+
+    }
 }
