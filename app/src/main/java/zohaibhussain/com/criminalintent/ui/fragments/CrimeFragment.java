@@ -1,6 +1,7 @@
 package zohaibhussain.com.criminalintent.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -53,6 +54,11 @@ public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
     private File mPhotoFile;
+    private Callbacks mCallbacks;
+
+    public interface Callbacks{
+         void onCrimeUpdated(Crime crime);
+    }
 
     @Bind(R.id.crime_title)
     protected EditText mTitleField;
@@ -248,6 +254,7 @@ public class CrimeFragment extends Fragment {
     public void onPause(){
         super.onPause();
         CrimeLab.get(getActivity()).updateCrime(mCrime);
+    }
 
     }
 
