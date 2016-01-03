@@ -133,14 +133,6 @@ public class CrimeFragment extends Fragment {
         else {
             mPhotoButton.setEnabled(false);
         }
-
-        mPhotoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(CAPTURE_IMAGE, REQUEST_PHOTO);
-            }
-        });
-
         updatePhotoView();
 
         return v;
@@ -216,6 +208,11 @@ public class CrimeFragment extends Fragment {
     @OnClick(R.id.crime_suspect)
     public void onClickSuspectButton(){
         startActivityForResult(PICK_CONTACT_INTENT, REQUEST_CONTACT);
+    }
+
+    @OnClick(R.id.crime_camera)
+    public void onClickCrimeCameraButton(){
+        startActivityForResult(CAPTURE_IMAGE, REQUEST_PHOTO);
     }
 
     public static CrimeFragment newInstance(UUID crimeID){
