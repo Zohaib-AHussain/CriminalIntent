@@ -93,6 +93,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             mCallbacks.onCrimeSelected(mCrime);
+            mClickedCrimePosition = getAdapterPosition();
         }
     }
 
